@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>✦ 網球手鍊精算系統 / Tennis Bracelet Calculator ✦</title>
+<title>(=^･ω･^=) 網球手鏈精算系統 / Tennis Bracelet Calculator U・ᴥ・U</title>
 <style>
   /* 莫蘭迪淺咖啡色系配置 (Morandi Brown Palette) */
   :root {
@@ -50,18 +50,20 @@
 </head>
 <body>
 <div class="container">
-  <h2>✦ 網球手鍊精算系統 <br><span style="font-size:16px;">Tennis Bracelet Calculator</span> ✦</h2>
+  <h2>✦ (=^･ω･^=) 網球手鏈精算系統 U・ᴥ・U ✦<br><span style="font-size:16px;">Tennis Bracelet Calculator</span></h2>
   
   <div class="input-group">
-    <label>選擇手鍊版型 <span class="en-text">(Select Bracelet Style)</span>
+    <label>選擇手鏈版型 <span class="en-text">(Select Bracelet Style)</span>
       <select id="modeSelect" onchange="loadDefault()">
-        <option value="5pt">5分 滿鑽手鍊 / 0.05ct Tennis Bracelet (扣頭含5鑽 / Clasp: 5 stones)</option>
-        <option value="10pt">10分 滿鑽手鍊 / 0.10ct Tennis Bracelet (扣頭含4鑽 / Clasp: 4 stones)</option>
-        <option value="20pt">20分 滿鑽手鍊 / 0.20ct Tennis Bracelet (扣頭含5鑽 / Clasp: 5 stones)</option>
+        <option value="4pt">加密4分 滿鑽手鏈 / 0.04ct Tennis Bracelet</option>
+        <option value="5pt">5分 滿鑽手鏈 / 0.05ct Tennis Bracelet</option>
+        <option value="8pt">8分 滿鑽手鏈 / 0.08ct Tennis Bracelet</option>
+        <option value="10pt">10分 滿鑽手鏈 / 0.10ct Tennis Bracelet</option>
+        <option value="20pt">20分 滿鑽手鏈 / 0.20ct Tennis Bracelet</option>
       </select>
     </label>
     
-    <label>目標總長度 <span class="en-text">(Target Length, mm) [輸入即自動精算 / Auto-calculates]</span>
+    <label>目標總長度 <span class="en-text">(Target Length, cm) [輸入即自動精算 / Auto-calculates]</span>
       <input type="number" id="tLen" step="0.01" oninput="calcFromLength()">
     </label>
   </div>
@@ -72,11 +74,13 @@
 </div>
 
 <script>
-  // 內建隱藏參數 (Hidden Default Parameters)
+  // 內建隱藏參數 (Hidden Default Parameters) - 內部精算仍維持mm，顯示時換算cm
   const configs = {
-    "5pt": { defaultLen: 163.71, cLen: 13.12, cWt: 1.22, cStones: 5, sLen: 2.5, sWt: 0.096, ctPerStone: 0.05 },
-    "10pt": { defaultLen: 195.1, cLen: 13.6, cWt: 4.24, cStones: 4, sLen: 3.3, sWt: 0.165, ctPerStone: 0.10 },
-    "20pt": { defaultLen: 177.33, cLen: 20.13, cWt: 2.161, cStones: 5, sLen: 4.0, sWt: 0.25, ctPerStone: 0.20 }
+    "4pt": { defaultLen: 16.00, cLen: 10.4, cWt: 0.88, cStones: 4, sLen: 2.26, sWt: 0.10, ctPerStone: 0.04 },
+    "5pt": { defaultLen: 16.37, cLen: 13.12, cWt: 1.22, cStones: 5, sLen: 2.5, sWt: 0.096, ctPerStone: 0.05 },
+    "8pt": { defaultLen: 16.00, cLen: 15.5, cWt: 1.32, cStones: 5, sLen: 3.0, sWt: 0.14, ctPerStone: 0.08 },
+    "10pt": { defaultLen: 19.51, cLen: 13.6, cWt: 4.24, cStones: 4, sLen: 3.3, sWt: 0.165, ctPerStone: 0.10 },
+    "20pt": { defaultLen: 17.73, cLen: 20.13, cWt: 2.161, cStones: 5, sLen: 4.0, sWt: 0.25, ctPerStone: 0.20 }
   };
   
   const k14Ratio = 0.864;
@@ -91,10 +95,11 @@
   function calcFromLength() {
     let mode = document.getElementById('modeSelect').value;
     let conf = configs[mode];
-    let tLen = parseFloat(document.getElementById('tLen').value) || 0;
+    let tLen_cm = parseFloat(document.getElementById('tLen').value) || 0;
     
-    let actualSpace = tLen - conf.cLen;
-    let baseStones = Math.round(actualSpace / conf.sLen);
+    // 將輸入的公分轉為毫米進行內部精密計算
+    let actualSpace_mm = (tLen_cm * 10) - conf.cLen;
+    let baseStones = Math.round(actualSpace_mm / conf.sLen);
     
     updateTable(baseStones, conf);
   }
@@ -105,7 +110,7 @@
         <th rowspan="2">排版情境<br><span class="en-text">Scenario</span></th>
         <th rowspan="2">總粒數<br><span class="en-text">Total Stones</span><br><span class="sub-text" style="color:#FFF;">(主鏈+扣頭 / Main+Clasp)</span></th>
         <th rowspan="2" style="background-color:#BCAAA4;">總鑽重<br><span class="en-text">Total Carat (ct)</span></th>
-        <th rowspan="2">實際排版總長<br><span class="en-text">Actual Length (mm)</span></th>
+        <th rowspan="2">實際排版總長<br><span class="en-text">Actual Length (cm)</span></th>
         <th>18K金 淨重<br><span class="en-text">18K Net Wt. (g)</span></th>
         <th style="background-color:#D7CCC8; color:#4A4036;">14K金 淨重<br><span class="en-text">14K Net Wt. (g)</span></th>
         <th style="background-color:#9E9E9E;">PT950 淨重<br><span class="en-text">PT950 Net Wt. (g)</span></th>
@@ -125,7 +130,10 @@
     for(let i = -1; i <= 1; i++) {
       let mainStones = baseStones + i;
       let totalStones = mainStones + conf.cStones;
-      let len = conf.cLen + (mainStones * conf.sLen);
+      
+      // 計算總長度(毫米)後轉回(公分)顯示
+      let len_mm = conf.cLen + (mainStones * conf.sLen);
+      let len_cm = len_mm / 10;
       
       let totalCt = totalStones * conf.ctPerStone;
 
@@ -140,7 +148,7 @@
         <td>${label.cn}<br><span class="sub-text">${label.en}</span></td>
         <td>${totalStones} <span class="sub-text">pcs</span></td>
         <td style="color:var(--text-main); font-weight:bold; font-size:16px;">${totalCt.toFixed(2)} ct</td>
-        <td>${len.toFixed(2)}</td>
+        <td>${len_cm.toFixed(2)} cm</td>
         <td>${wt18k.toFixed(3)}</td>
         <td>${wt14k.toFixed(3)}</td>
         <td>${wtPt.toFixed(3)}</td>
