@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>(=^･ω･^=) 網球手鏈精算系統 / Tennis Bracelet Calculator U・ᴥ・U</title>
+<title>✦ 網球手鏈精算系統 / Tennis Bracelet Calculator ✦</title>
 <style>
   /* 莫蘭迪淺咖啡色系配置 (Morandi Brown Palette) */
   :root {
@@ -50,11 +50,14 @@
 </head>
 <body>
 <div class="container">
-  <h2>✦ (=^･ω･^=) 網球手鏈精算系統 U・ᴥ・U ✦<br><span style="font-size:16px;">Tennis Bracelet Calculator</span></h2>
+  <h2>✦ 網球手鏈精算系統 ✦<br><span style="font-size:16px;">Tennis Bracelet Calculator</span></h2>
   
   <div class="input-group">
     <label>選擇手鏈版型 <span class="en-text">(Select Bracelet Style)</span>
       <select id="modeSelect" onchange="loadDefault()">
+        <option value="1pt">1分 滿鑽手鏈 / 0.01ct Tennis Bracelet</option>
+        <option value="2pt">2分 滿鑽手鏈 / 0.02ct Tennis Bracelet</option>
+        <option value="3pt">3分 滿鑽手鏈 / 0.03ct Tennis Bracelet</option>
         <option value="4pt">加密4分 滿鑽手鏈 / 0.04ct Tennis Bracelet</option>
         <option value="5pt">5分 滿鑽手鏈 / 0.05ct Tennis Bracelet</option>
         <option value="8pt">8分 滿鑽手鏈 / 0.08ct Tennis Bracelet</option>
@@ -76,6 +79,9 @@
 <script>
   // 內建隱藏參數 (Hidden Default Parameters) - 內部精算仍維持mm，顯示時換算cm
   const configs = {
+    "1pt": { defaultLen: 16.08, cLen: 7.14, cWt: 0.585, cStones: 4, sLen: 1.7, sWt: 0.067, ctPerStone: 0.01 },
+    "2pt": { defaultLen: 16.00, cLen: 7.93, cWt: 0.64, cStones: 4, sLen: 2.0, sWt: 0.073, ctPerStone: 0.02 },
+    "3pt": { defaultLen: 16.17, cLen: 12.84, cWt: 1.01, cStones: 5, sLen: 2.2, sWt: 0.084, ctPerStone: 0.03 },
     "4pt": { defaultLen: 16.00, cLen: 10.4, cWt: 0.88, cStones: 4, sLen: 2.26, sWt: 0.10, ctPerStone: 0.04 },
     "5pt": { defaultLen: 16.37, cLen: 13.12, cWt: 1.22, cStones: 5, sLen: 2.5, sWt: 0.096, ctPerStone: 0.05 },
     "8pt": { defaultLen: 16.00, cLen: 15.5, cWt: 1.32, cStones: 5, sLen: 3.0, sWt: 0.14, ctPerStone: 0.08 },
