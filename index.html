@@ -45,7 +45,8 @@
   
   .highlight { font-weight: bold; color: var(--highlight-text); background-color: var(--highlight-bg) !important; }
   .en-text { font-size: 12px; opacity: 0.9; display: block; margin-top: 3px; font-weight: normal; }
-  .sub-text { font-size: 12px; color: var(--text-light); font-weight: normal; display: block; margin-top: 2px; }
+  .sub-text { font-size: 12px; color: var(--text-light); font-weight: normal; display: block; margin-top: 4px; }
+  .weight-unit { color: var(--primary-color); font-weight: bold; font-size: 13px; }
 </style>
 </head>
 <body>
@@ -91,6 +92,17 @@
   
   const k14Ratio = 0.864;
   const ptRatio = 1.3;
+  const gramToQian = 3.75; // 1錢 = 3.75克
+
+  function formatWeight(g) {
+    let qianTotal = g / gramToQian;
+    if (qianTotal >= 10) {
+      let liang = Math.floor(qianTotal / 10);
+      let qian = (qianTotal - (liang * 10)).toFixed(2);
+      return `${liang}兩 ${qian}錢`;
+    }
+    return `${qianTotal.toFixed(2)} 錢`;
+  }
 
   function loadDefault() {
     let mode = document.getElementById('modeSelect').value;
@@ -117,14 +129,14 @@
         <th rowspan="2">總粒數<br><span class="en-text">Total Stones</span><br><span class="sub-text" style="color:#FFF;">(主鏈+扣頭 / Main+Clasp)</span></th>
         <th rowspan="2" style="background-color:#BCAAA4;">總鑽重<br><span class="en-text">Total Carat (ct)</span></th>
         <th rowspan="2">實際排版總長<br><span class="en-text">Actual Length (cm)</span></th>
-        <th>18K金 淨重<br><span class="en-text">18K Net Wt. (g)</span></th>
-        <th style="background-color:#D7CCC8; color:#4A4036;">14K金 淨重<br><span class="en-text">14K Net Wt. (g)</span></th>
-        <th style="background-color:#9E9E9E;">PT950 淨重<br><span class="en-text">PT950 Net Wt. (g)</span></th>
+        <th>18K金 淨重<br><span class="en-text">18K Net Wt.</span></th>
+        <th style="background-color:#D7CCC8; color:#4A4036;">14K金 淨重<br><span class="en-text">14K Net Wt.</span></th>
+        <th style="background-color:#9E9E9E;">PT950 淨重<br><span class="en-text">PT950 Net Wt.</span></th>
       </tr>
       <tr>
-        <th>(預估 / Est.)</th>
-        <th style="background-color:#D7CCC8; color:#4A4036;">(預估 / Est.)</th>
-        <th style="background-color:#9E9E9E;">(預估 / Est.)</th>
+        <th>(克 g / 錢/兩)</th>
+        <th style="background-color:#D7CCC8; color:#4A4036;">(克 g / 錢/兩)</th>
+        <th style="background-color:#9E9E9E;">(克 g / 錢/兩)</th>
       </tr>`;
 
     const labels = [
@@ -137,7 +149,6 @@
       let mainStones = baseStones + i;
       let totalStones = mainStones + conf.cStones;
       
-      // 計算總長度(毫米)後轉回(公分)顯示
       let len_mm = conf.cLen + (mainStones * conf.sLen);
       let len_cm = len_mm / 10;
       
@@ -155,9 +166,9 @@
         <td>${totalStones} <span class="sub-text">pcs</span></td>
         <td style="color:var(--text-main); font-weight:bold; font-size:16px;">${totalCt.toFixed(2)} ct</td>
         <td>${len_cm.toFixed(2)} cm</td>
-        <td>${wt18k.toFixed(3)}</td>
-        <td>${wt14k.toFixed(3)}</td>
-        <td>${wtPt.toFixed(3)}</td>
+        <td>${wt18k.toFixed(2)} g<br><span class="sub-text weight-unit">${formatWeight(wt18k)}</span></td>
+        <td>${wt14k.toFixed(2)} g<br><span class="sub-text weight-unit">${formatWeight(wt14k)}</span></td>
+        <td>${wtPt.toFixed(2)} g<br><span class="sub-text weight-unit">${formatWeight(wtPt)}</span></td>
       </tr>`;
     }
     html += "</table>";
