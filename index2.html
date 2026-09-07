@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>✦ 網球手鏈精算系統 / Tennis Bracelet Calculator ✦</title>
+<title>💍 整件微鑲線戒 終極精算系統 (雙軌戒圍版)</title>
 <style>
   :root { 
     --bg-color: #F5F0EB; 
@@ -23,9 +23,8 @@
   .diagram-box { background: #FCFAF8; padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 20px; text-align: center; }
   .diagram-title { color: var(--primary-color); font-weight: bold; font-size: 15px; margin-bottom: 10px; display: block; }
 
-  /* 手機優先的雙排設計 */
+  /* 強制改為單行上下排列 (取消左右並排) */
   .input-group { background: #FCFAF8; padding: 20px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 20px; display: grid; grid-template-columns: 1fr; gap: 15px; }
-  @media(min-width: 600px) { .input-group { grid-template-columns: 1fr 1fr; } }
   
   label { display: block; font-weight: bold; color: var(--primary-color); font-size: 15px; }
   input, select { width: 100%; padding: 12px; margin-top: 8px; box-sizing: border-box; border: 1px solid var(--secondary-color); border-radius: 6px; font-size: 16px; font-weight: bold; color: var(--text-main); }
@@ -201,7 +200,7 @@
       </select>
     </label>
     
-    <label style="grid-column: 1 / -1;">手圍內直徑 (Inner Dia, mm)：
+    <label>手圍內直徑 (Inner Dia, mm)：
       <input type="number" id="innerDia" step="0.01" value="17.55" oninput="calcRing()">
     </label>
   </div>
@@ -229,7 +228,7 @@
     return `${qian.toFixed(2)} 錢`;
   }
 
-  let lastSelectedMode = "C16"; // 初始預設值
+  let lastSelectedMode = "C16"; 
 
   function updateDia(sourceType) {
     let selectedDia = "";
@@ -238,12 +237,10 @@
     if(sourceType === 'C') {
       selectEl = document.getElementById('cSize');
       selectedDia = selectEl.value;
-      // 重置 T棒 選單
       document.getElementById('tSize').selectedIndex = 0;
     } else if (sourceType === 'T') {
       selectEl = document.getElementById('tSize');
       selectedDia = selectEl.value;
-      // 重置 C棒 選單
       document.getElementById('cSize').selectedIndex = 0;
     }
 
@@ -277,7 +274,7 @@
         <th>精算總粒數</th>
         <th style="background-color:#8E44AD; color:white;">總鑽重 (ct)<br><span class="sub-text" style="color:white;">(單顆 ${ctPerStone}ct)</span></th>
         <th>實際金屬間隙<br><span class="sub-text">(以 0.9mm 扣除)</span></th>
-        <th>18K金 淨重<br><span class="sub-text">(實測係數推算)</span></th>
+        <th>18K金 淨重<br><span class="sub-text">(實測係推算)</span></th>
         <th style="background-color:#D7CCC8; color:#4A4036;">14K金 淨重</th>
         <th style="background-color:#9E9E9E;">PT950 淨重</th>
       </tr>`;
@@ -307,7 +304,6 @@
     document.getElementById('result').innerHTML = html;
   }
   
-  // 網頁初始化時，將 C16 設為預設選中狀態，以符合預設內直徑 17.55
   document.getElementById('cSize').value = "17.55";
   calcRing();
 </script>
