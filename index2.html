@@ -20,8 +20,19 @@
   .container { max-width: 950px; background: var(--card-bg); padding: 30px; border-radius: 12px; box-shadow: 0 8px 24px rgba(141, 123, 104, 0.15); margin: auto; }
   h2 { color: var(--primary-color); text-align: center; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; font-size: 22px; margin-top: 0; }
   
-  .diagram-box { background: #FCFAF8; padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 20px; text-align: center; }
+  .diagram-box, .reference-img-box { background: #FCFAF8; padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 20px; text-align: center; }
   .diagram-title { color: var(--primary-color); font-weight: bold; font-size: 15px; margin-bottom: 10px; display: block; }
+  
+  /* 實品圖樣式設定 */
+  .reference-img-box img { 
+    width: 100%; 
+    max-height: 250px; 
+    object-fit: contain; 
+    border-radius: 8px; 
+    margin-top: 10px; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+    background-color: #FFFFFF; 
+  }
 
   .input-group { background: #FCFAF8; padding: 20px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 20px; display: grid; grid-template-columns: 1fr; gap: 15px; }
   
@@ -44,6 +55,12 @@
 <body>
 <div class="container">
   <h2>💍 整件微鑲線戒 終極精算系統<br><span style="font-size:16px;">(自動對應 雙軌戒圍)</span></h2>
+
+  <!-- 實品圖文對照區 -->
+  <div class="reference-img-box">
+    <span class="diagram-title">📸 實品款式參考 (這件貨的圖)</span>
+    <img src="https://github.com/peter31love/-jewelry-calc-10045/blob/81976f4b6bae67d0d4f1aa8c1a6cd65a026b2620/%E6%9C%AA%E5%91%BD%E5%90%8D%20-1.png?raw=true" alt="整件微鑲線戒實品圖">
+  </div>
   
   <div class="diagram-box">
     <span class="diagram-title">📐 戒指排版物理空間 (動態剖面圖)</span>
@@ -73,7 +90,7 @@
       <text x="250" y="65" font-size="12" fill="#D35400" text-anchor="start" font-weight="bold">軌道底座厚度</text>
       <text x="250" y="80" font-size="11" fill="#D35400" text-anchor="start">(已鎖定 1.0mm)</text>
 
-      <!-- 新增截面寬度與厚度示意 -->
+      <!-- 截面寬度與厚度示意 -->
       <rect x="255" y="140" width="14" height="19" fill="#F9F6F0" stroke="#8D7B68" stroke-width="2" />
       
       <!-- 正面寬度標示 -->
