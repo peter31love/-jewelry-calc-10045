@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💍 整件微鑲線戒 終極精算系統 (雙軌戒圍版)</title>
+<style>
+  :root { 
+    --bg-color: #F5F0EB; 
+    --card-bg: #FFFFFF; 
+    --primary-color: #8D7B68; 
+    --secondary-color: #A4907C; 
+    --text-main: #4A4036; 
+    --text-light: #7E7468; 
+    --border-color: #E6E2DD; 
+    --highlight-bg: #F9F6F0; 
+    --highlight-text: #8D7B68; 
+  }
+  body { font-family: 'Trebuchet MS', Arial, sans-serif; padding: 20px 15px; background-color: var(--bg-color); color: var(--text-main); margin: 0; }
+  .container { max-width: 950px; background: var(--card-bg); padding: 30px; border-radius: 12px; box-shadow: 0 8px 24px rgba(141, 123, 104, 0.15); margin: auto; }
+  h2 { color: var(--primary-color); text-align: center; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; font-size: 22px; margin-top: 0; }
+  
+  .diagram-box { background: #FCFAF8; padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 20px; text-align: center; }
+  .diagram-title { color: var(--primary-color); font-weight: bold; font-size: 15px; margin-bottom: 10px; display: block; }
+
+  .input-group { background: #FCFAF8; padding: 20px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+  @media(max-width: 600px) { .input-group { grid-template-columns: 1fr; } }
+  label { display: block; font-weight: bold; color: var(--primary-color); font-size: 15px; }
+  input, select { width: 100%; padding: 12px; margin-top: 8px; box-sizing: border-box; border: 1px solid var(--secondary-color); border-radius: 6px; font-size: 16px; font-weight: bold; color: var(--text-main); }
+  input:focus, select:focus { outline: none; border-color: var(--primary-color); }
+  
+  .info-box { background-color: var(--highlight-bg); color: var(--primary-color); padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; border: 1px solid var(--border-color); margin-bottom: 20px; line-height: 1.6; }
+  .table-responsive { overflow-x: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  table { width: 100%; border-collapse: collapse; min-width: 850px; background-color: white; }
+  th, td { border: 1px solid var(--border-color); padding: 14px 12px; text-align: center; font-size: 14.5px; }
+  th { background-color: var(--secondary-color); color: white; font-weight: normal; }
+  tr:nth-child(even) { background-color: #FAFAFA; }
+  .highlight { font-weight: bold; color: var(--highlight-text); background-color: var(--highlight-bg) !important; }
+  .weight-tw { font-size: 13px; color: #d35400; font-weight: bold; display: block; margin-top: 5px; }
+  .sub-text { font-size: 12px; color: var(--text-light); font-weight: normal; display: block; margin-top: 4px; }
+  .ct-text { color: #8E44AD; font-weight: bold; font-size: 16px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>💍 整件微鑲線戒 終極精算系統<br><span style="font-size:16px;">(自動對應 雙軌戒圍)</span></h2>
+  
+  <div class="diagram-box">
+    <span class="diagram-title">📐 戒指排版物理空間 (動態剖面圖)</span>
+    <svg width="100%" height="180" viewBox="0 0 350 180" style="max-width: 400px; display: block; margin: auto;">
+      <defs>
+        <marker id="arrowDark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#4A4036" />
+        </marker>
+        <marker id="arrowOrange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#D35400" />
+        </marker>
+      </defs>
+      <circle cx="175" cy="90" r="75" fill="none" stroke="#A4907C" stroke-width="2" stroke-dasharray="6 4" />
+      <text id="svg-stone-count" x="175" y="10" font-size="13" fill="#A4907C" text-anchor="middle" font-weight="bold">外圍：排石基準軌道 (...顆)</text>
+      <circle cx="175" cy="90" r="50" fill="#F9F6F0" stroke="#8D7B68" stroke-width="3" />
+      <text id="svg-c-size" x="175" y="175" font-size="13" fill="#8D7B68" text-anchor="middle" font-weight="bold">內圈：客製手圍 (...)</text>
+      <line x1="125" y1="90" x2="225" y2="90" stroke="#4A4036" stroke-width="1.5" marker-start="url(#arrowDark)" marker-end="url(#arrowDark)" />
+      <rect x="130" y="80" width="90" height="20" fill="#F9F6F0" />
+      <text id="svg-inner-dia" x="175" y="94" font-size="12" fill="#4A4036" text-anchor="middle" font-weight="bold">內直徑 ...mm</text>
+      <line x1="225" y1="90" x2="250" y2="90" stroke="#D35400" stroke-width="2" marker-start="url(#arrowOrange)" marker-end="url(#arrowOrange)" />
+      <line x1="255" y1="90" x2="280" y2="60" stroke="#D35400" stroke-width="1" stroke-dasharray="2 2" />
+      <text x="282" y="58" font-size="12" fill="#D35400" text-anchor="start" font-weight="bold">軌道底座厚度</text>
+      <text x="282" y="74" font-size="11" fill="#D35400" text-anchor="start">(已鎖定 1.0mm)</text>
+    </svg>
+  </div>
+
+  <div class="input-group">
+    <label>港圍 (C棒)：
+      <select id="cSize" onchange="updateDia('C')">
+        <option value="" disabled selected>請選擇 C棒手圍</option>
+        <option value="12.40">C1 (12.40mm)</option>
+        <option value="12.58">C1.5 (12.58mm)</option>
+        <option value="12.75">C2 (12.75mm)</option>
+        <option value="12.95">C2.5 (12.95mm)</option>
+        <option value="13.15">C3 (13.15mm)</option>
+        <option value="13.33">C3.5 (13.33mm)</option>
+        <option value="13.50">C4 (13.50mm)</option>
+        <option value="13.63">C4.5 (13.63mm)</option>
+        <option value="13.75">C5 (13.75mm)</option>
+        <option value="13.95">C5.5 (13.95mm)</option>
+        <option value="14.15">C6 (14.15mm)</option>
+        <option value="14.33">C6.5 (14.33mm)</option>
+        <option value="14.50">C7 (14.50mm)</option>
+        <option value="14.68">C7.5 (14.68mm)</option>
+        <option value="14.85">C8 (14.85mm)</option>
+        <option value="15.00">C8.5 (15.00mm)</option>
+        <option value="15.15">C9 (15.15mm)</option>
+        <option value="15.33">C9.5 (15.33mm)</option>
+        <option value="15.50">C10 (15.50mm)</option>
+        <option value="15.65">C10.5 (15.65mm)</option>
+        <option value="15.80">C11 (15.80mm)</option>
+        <option value="16.00">C11.5 (16.00mm)</option>
+        <option value="16.20">C12 (16.20mm)</option>
+        <option value="16.50">C12.5 (16.50mm)</option>
+        <option value="16.55">C13 (16.55mm)</option>
+        <option value="16.73">C13.5 (16.73mm)</option>
+        <option value="16.90">C14 (16.90mm)</option>
+        <option value="17.10">C14.5 (17.10mm)</option>
+        <option value="17.30">C15 (17.30mm)</option>
+        <option value="17.43">C15.5 (17.43mm)</option>
+        <option value="17.55">C16 (17.55mm)</option>
+        <option value="17.78">C16.5 (17.78mm)</option>
+        <option value="18.00">C17 (18.00mm)</option>
+        <option value="18.20">C17.5 (18.20mm)</option>
+        <option value="18.40">C18 (18.40mm)</option>
+        <option value="18.55">C18.5 (18.55mm)</option>
+        <option value="18.70">C19 (18.70mm)</option>
+        <option value="18.85">C19.5 (18.85mm)</option>
+        <option value="19.00">C20 (19.00mm)</option>
+        <option value="19.20">C20.5 (19.20mm)</option>
+        <option value="19.40">C21 (19.40mm)</option>
+        <option value="19.60">C21.5 (19.60mm)</option>
+        <option value="19.80">C22 (19.80mm)</option>
+        <option value="19.95">C22.5 (19.95mm)</option>
+        <option value="20.10">C23 (20.10mm)</option>
+        <option value="20.30">C23.5 (20.30mm)</option>
+        <option value="20.50">C24 (20.50mm)</option>
+      </select>
+    </label>
+
+    <label>國際圍 (T棒)：
+      <select id="tSize" onchange="updateDia('T')">
+        <option value="" disabled selected>請選擇 T棒手圍</option>
+        <option value="12.60">T3 (12.60mm)</option>
+        <option value="12.75">T3.25 (12.75mm)</option>
+        <option value="12.90">T3.5 (12.90mm)</option>
+        <option value="13.05">T3.75 (13.05mm)</option>
+        <option value="13.20">T4 (13.20mm)</option>
+        <option value="13.30">T4.25 (13.30mm)</option>
+        <option value="13.40">T4.5 (13.40mm)</option>
+        <option value="13.50">T4.75 (13.50mm)</option>
+        <option value="13.60">T5 (13.60mm)</option>
+        <option value="13.75">T5.25 (13.75mm)</option>
+        <option value="13.90">T5.5 (13.90mm)</option>
+        <option value="14.05">T5.75 (14.05mm)</option>
+        <option value="14.20">T6 (14.20mm)</option>
+        <option value="14.30">T6.25 (14.30mm)</option>
+        <option value="14.40">T6.5 (14.40mm)</option>
+        <option value="14.50">T6.75 (14.50mm)</option>
+        <option value="14.60">T7 (14.60mm)</option>
+        <option value="14.70">T7.25 (14.70mm)</option>
+        <option value="14.80">T7.5 (14.80mm)</option>
+        <option value="14.90">T7.75 (14.90mm)</option>
+        <option value="15.00">T8 (15.00mm)</option>
+        <option value="15.15">T8.25 (15.15mm)</option>
+        <option value="15.30">T8.5 (15.30mm)</option>
+        <option value="15.45">T8.75 (15.45mm)</option>
+        <option value="15.60">T9 (15.60mm)</option>
+        <option value="15.75">T9.25 (15.75mm)</option>
+        <option value="15.90">T9.5 (15.90mm)</option>
+        <option value="16.05">T9.75 (16.05mm)</option>
+        <option value="16.20">T10 (16.20mm)</option>
+        <option value="16.30">T10.25 (16.30mm)</option>
+        <option value="16.40">T10.5 (16.40mm)</option>
+        <option value="16.50">T10.75 (16.50mm)</option>
+        <option value="16.60">T11 (16.60mm)</option>
+        <option value="16.70">T11.25 (16.70mm)</option>
+        <option value="16.80">T11.5 (16.80mm)</option>
+        <option value="16.90">T11.75 (16.90mm)</option>
+        <option value="17.00">T12 (17.00mm)</option>
+        <option value="17.15">T12.25 (17.15mm)</option>
+        <option value="17.30">T12.5 (17.30mm)</option>
+        <option value="17.45">T12.75 (17.45mm)</option>
+        <option value="17.60">T13 (17.60mm)</option>
+        <option value="17.73">T13.25 (17.73mm)</option>
+        <option value="17.85">T13.5 (17.85mm)</option>
+        <option value="17.98">T13.75 (17.98mm)</option>
+        <option value="18.10">T14 (18.10mm)</option>
+        <option value="18.23">T14.25 (18.23mm)</option>
+        <option value="18.35">T14.5 (18.35mm)</option>
+        <option value="18.48">T14.75 (18.48mm)</option>
+        <option value="18.60">T15 (18.60mm)</option>
+        <option value="18.75">T15.25 (18.75mm)</option>
+        <option value="18.90">T15.5 (18.90mm)</option>
+        <option value="19.05">T15.75 (19.05mm)</option>
+        <option value="19.20">T16 (19.20mm)</option>
+        <option value="19.30">T16.25 (19.30mm)</option>
+        <option value="19.40">T16.5 (19.40mm)</option>
+        <option value="19.50">T16.75 (19.50mm)</option>
+        <option value="19.60">T17 (19.60mm)</option>
+        <option value="19.75">T17.25 (19.75mm)</option>
+        <option value="19.90">T17.5 (19.90mm)</option>
+        <option value="20.05">T17.75 (20.05mm)</option>
+        <option value="20.20">T18 (20.20mm)</option>
+        <option value="20.30">T18.25 (20.30mm)</option>
+        <option value="20.40">T18.5 (20.40mm)</option>
+        <option value="20.50">T18.75 (20.50mm)</option>
+        <option value="20.60">T19 (20.60mm)</option>
+        <option value="20.75">T19.25 (20.75mm)</option>
+        <option value="20.90">T19.5 (20.90mm)</option>
+        <option value="21.05">T19.75 (21.05mm)</option>
+        <option value="21.20">T20 (21.20mm)</option>
+      </select>
+    </label>
+    
+    <label style="grid-column: span 2;">手圍內直徑 (Inner Dia, mm)：
+      <input type="number" id="innerDia" step="0.01" value="17.55" oninput="calcRing()">
+    </label>
+  </div>
+
+  <div class="info-box" id="baseInfo"></div>
+  <div class="table-responsive"><div id="result"></div></div>
+</div>
+
+<script>
+  const actualThickness = 1.00;
+  const baseStone = 0.90;      
+  const targetGap = 0.16;
+  const ctPerStone = 0.004;
+  const coef18K = 0.0255;      
+  const k14Ratio = 0.864;      
+  const ptRatio = 1.3;         
+
+  function toTaiwanWeight(grams) {
+    let qian = grams / 3.75;
+    if (qian >= 10) {
+      let liang = Math.floor(qian / 10);
+      let remain = (qian % 10).toFixed(2);
+      return `${liang} 兩 ${remain} 錢`;
+    }
+    return `${qian.toFixed(2)} 錢`;
+  }
+
+  let lastSelectedMode = "C16"; // 初始預設值
+
+  function updateDia(sourceType) {
+    let selectedDia = "";
+    let selectEl = null;
+
+    if(sourceType === 'C') {
+      selectEl = document.getElementById('cSize');
+      selectedDia = selectEl.value;
+      // 重置 T棒 選單
+      document.getElementById('tSize').selectedIndex = 0;
+    } else if (sourceType === 'T') {
+      selectEl = document.getElementById('tSize');
+      selectedDia = selectEl.value;
+      // 重置 C棒 選單
+      document.getElementById('cSize').selectedIndex = 0;
+    }
+
+    if(selectedDia) {
+        document.getElementById('innerDia').value = selectedDia;
+        lastSelectedMode = selectEl.options[selectEl.selectedIndex].text.split(' ')[0];
+        calcRing();
+    }
+  }
+
+  function calcRing() {
+    let innerDia = parseFloat(document.getElementById('innerDia').value) || 0;
+    
+    let layoutDia = innerDia + (actualThickness * 2);
+    let circ = layoutDia * Math.PI;
+
+    let targetUnit = baseStone + targetGap;
+    let baseStones = Math.round(circ / targetUnit);
+
+    document.getElementById('svg-c-size').textContent = '內圈：客製手圍 (' + lastSelectedMode + ')';
+    document.getElementById('svg-inner-dia').textContent = '內直徑 ' + innerDia.toFixed(2) + 'mm';
+    document.getElementById('svg-stone-count').textContent = '外圍：排石基準軌道 (' + baseStones + '顆)';
+
+    document.getElementById('baseInfo').innerHTML = 
+      `📐 鎖定運算底座厚度：<span style="color:#D35400;">${actualThickness.toFixed(2)} mm</span><br>
+       📏 排石基準圓周長：${circ.toFixed(2)} mm`;
+
+    let html = `<table>
+      <tr>
+        <th>排版狀態</th>
+        <th>精算總粒數</th>
+        <th style="background-color:#8E44AD; color:white;">總鑽重 (ct)<br><span class="sub-text" style="color:white;">(單顆 ${ctPerStone}ct)</span></th>
+        <th>實際金屬間隙<br><span class="sub-text">(以 0.9mm 扣除)</span></th>
+        <th>18K金 淨重<br><span class="sub-text">(實測係數推算)</span></th>
+        <th style="background-color:#D7CCC8; color:#4A4036;">14K金 淨重</th>
+        <th style="background-color:#9E9E9E;">PT950 淨重</th>
+      </tr>`;
+
+    let nStones = baseStones;
+    let actualUnit = circ / nStones;
+    let actualGap = actualUnit - baseStone;
+    let totalCt = nStones * ctPerStone;
+    
+    let wt18k = circ * coef18K;
+    let wt14k = wt18k * k14Ratio;
+    let wtPt = wt18k * ptRatio;
+
+    let gapColor = (actualGap >= 0.14 && actualGap <= 0.19) ? '#27AE60' : '#C0392B';
+    
+    html += `<tr class="highlight">
+      <td>完美閉環</td>
+      <td style="font-size:18px; font-weight:bold;">${nStones} 顆</td>
+      <td class="ct-text">${totalCt.toFixed(3)} ct</td>
+      <td style="color:${gapColor}; font-weight:bold; font-size:16px;">${actualGap.toFixed(3)} mm</td>
+      <td>${wt18k.toFixed(2)} g<span class="weight-tw">${toTaiwanWeight(wt18k)}</span></td>
+      <td>${wt14k.toFixed(2)} g<span class="weight-tw">${toTaiwanWeight(wt14k)}</span></td>
+      <td>${wtPt.toFixed(2)} g<span class="weight-tw">${toTaiwanWeight(wtPt)}</span></td>
+    </tr>`;
+    
+    html += "</table>";
+    document.getElementById('result').innerHTML = html;
+  }
+  
+  // 網頁初始化時，將 C16 設為預設選中狀態，以符合預設內直徑 17.55
+  document.getElementById('cSize').value = "17.55";
+  calcRing();
+</script>
+</body>
+</html>
