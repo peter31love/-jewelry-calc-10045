@@ -18,7 +18,7 @@
   }
 
   body { font-family: 'Trebuchet MS', 'Segoe UI', Arial, sans-serif; padding: 20px 15px; background-color: var(--bg-color); color: var(--text-main); margin: 0; }
-  .container { max-width: 950px; background: var(--card-bg); padding: 30px; border-radius: 12px; box-shadow: 0 8px 24px rgba(141, 123, 104, 0.15); margin: auto; }
+  .container { max-width: 1050px; background: var(--card-bg); padding: 30px; border-radius: 12px; box-shadow: 0 8px 24px rgba(141, 123, 104, 0.15); margin: auto; }
   h2 { color: var(--primary-color); text-align: center; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; font-size: 22px; margin-top: 0; }
   
   .reference-img-box { margin-bottom: 25px; background: #FCFAF8; padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); text-align: center; }
@@ -42,7 +42,7 @@
   input:focus, select:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 5px rgba(141, 123, 104, 0.3); }
   
   .table-responsive { overflow-x: auto; margin-top: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-  table { width: 100%; border-collapse: collapse; min-width: 850px; background-color: white; }
+  table { width: 100%; border-collapse: collapse; min-width: 1100px; background-color: white; }
   th, td { border: 1px solid var(--border-color); padding: 14px 12px; text-align: center; font-size: 14.5px; }
   th { background-color: var(--secondary-color); color: white; font-weight: normal; }
   tr:nth-child(even) { background-color: #FAFAFA; }
@@ -51,11 +51,36 @@
   .en-text { font-size: 12px; opacity: 0.9; display: block; margin-top: 3px; font-weight: normal; }
   .sub-text { font-size: 12px; color: var(--text-light); font-weight: normal; display: block; margin-top: 4px; }
   .weight-unit { color: var(--primary-color); font-weight: bold; font-size: 13px; }
+
+  /* 價格標籤專屬樣式 */
+  .price-tag { color: #A04000; font-weight: bold; font-size: 13px; margin-top: 6px; background: #FDEBD0; padding: 4px 8px; border-radius: 4px; display: inline-block; border: 1px solid #F5CBA7; }
+  .total-tag { color: #FFFFFF; font-weight: bold; font-size: 15px; margin-top: 4px; background: #D35400; padding: 5px 10px; border-radius: 6px; display: inline-block; box-shadow: 0 2px 5px rgba(211,84,0,0.3); letter-spacing: 0.5px; }
+  .price-title { color: #C0392B; font-size: 16px; border-bottom: 2px solid #E6E2DD; padding-bottom: 8px; margin-bottom: 15px; font-weight: bold; }
+  .fee-text { color: #2980B9; font-weight: bold; font-size: 13px; margin-top: 6px; display: inline-block; background: #EAF2F8; padding: 4px 8px; border-radius: 4px; margin-bottom: 2px; }
+  
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+  .grid-3 label { margin-top: 0; } 
 </style>
 </head>
 <body>
 <div class="container">
-  <h2>✦ 網球手鏈精算系統 ✦<br><span style="font-size:16px;">Tennis Bracelet Calculator</span></h2>
+  <h2>✦ 網球手鏈精算系統 ✦<br><span style="font-size:16px;">Tennis Bracelet Calculator (一鍵終極報價版)</span></h2>
+
+  <!-- 價格設定區塊 -->
+  <div class="input-group">
+    <div class="price-title">💰 原料當日盤價設定</div>
+    <div class="grid-3">
+      <label>鑽石單價 <span class="en-text">(每克拉 / ct)</span>：
+        <input type="number" id="diaPrice" step="100" value="15000" oninput="calcFromLength()">
+      </label>
+      <label>足金 (24K) 單價 <span class="en-text">(每克 / g)</span>：
+        <input type="number" id="goldPrice" step="10" value="2600" oninput="calcFromLength()">
+      </label>
+      <label>足鉑 (PT999) 單價 <span class="en-text">(每克 / g)</span>：
+        <input type="number" id="ptPrice" step="10" value="1100" oninput="calcFromLength()">
+      </label>
+    </div>
+  </div>
 
   <div class="input-group" style="margin-top: 20px;">
     <label>選擇手鏈版型 <span class="en-text">(Select Bracelet Style)</span>
@@ -76,7 +101,7 @@
     </label>
   </div>
 
-  <!-- 動態實品圖文對照區（已移至輸入框下方、表格上方） -->
+  <!-- 動態實品圖文對照區 -->
   <div class="reference-img-box" style="margin-bottom: 25px;">
     <span id="dynamicImgTitle" style="color: var(--primary-color); font-weight: bold; font-size: 14px;">實品款式參考</span>
     <img id="dynamicImg" src="" alt="實品圖">
@@ -102,6 +127,15 @@
   const k14Ratio = 0.864;
   const ptRatio = 1.3;
   const gramToQian = 3.75; 
+  
+  // 成色、損耗與工費係數
+  const purity18K = 0.755;
+  const purity14K = 0.590;
+  const purity10K = 0.417;
+  const purityPT = 0.955;
+  const lossMultiplier = 1.18;
+  const baseProcessFee = 600; // 基礎公費
+  const settingFeePerStone = 10; // 單顆鑲石工費
 
   function formatWeight(g) {
     let qianTotal = g / gramToQian;
@@ -140,60 +174,99 @@
     let conf = configs[mode];
     let tLen_cm = parseFloat(document.getElementById('tLen').value) || 0;
     
+    let diaPrice = parseFloat(document.getElementById('diaPrice').value) || 0;
+    let goldPrice = parseFloat(document.getElementById('goldPrice').value) || 0;
+    let ptPrice = parseFloat(document.getElementById('ptPrice').value) || 0;
+    
     updateDynamicImage(mode);
 
     let actualSpace_mm = (tLen_cm * 10) - conf.cLen;
     let baseStones = Math.round(actualSpace_mm / conf.sLen);
     
-    updateTable(baseStones, conf);
+    updateTable(baseStones, conf, diaPrice, goldPrice, ptPrice);
   }
 
-  function updateTable(baseStones, conf) {
+  function updateTable(baseStones, conf, diaPrice, goldPrice, ptPrice) {
     let html = `<table>
       <tr>
-        <th rowspan="2">排版情境<br><span class="en-text">Scenario</span></th>
-        <th rowspan="2">總粒數<br><span class="en-text">Total Stones</span><br><span class="sub-text" style="color:#FFF;">(主鏈+扣頭 / Main+Clasp)</span></th>
-        <th rowspan="2" style="background-color:#BCAAA4;">總鑽重<br><span class="en-text">Total Carat (ct)</span></th>
+        <th rowspan="2">總粒數與總工費<br><span class="en-text">Total Stones & Labor</span><br><span class="sub-text" style="color:#FFF;">(已含基礎公費 $${baseProcessFee})</span></th>
+        <th rowspan="2" style="background-color:#BCAAA4;">總鑽重與成本<br><span class="en-text">Total Carat (ct)</span></th>
         <th rowspan="2">實際排版總長<br><span class="en-text">Actual Length (cm)</span></th>
-        <th>18K金 淨重<br><span class="en-text">18K Net Wt.</span></th>
-        <th style="background-color:#D7CCC8; color:#4A4036;">14K金 淨重<br><span class="en-text">14K Net Wt.</span></th>
-        <th style="background-color:#9E9E9E;">PT950 淨重<br><span class="en-text">PT950 Net Wt.</span></th>
+        <th>18K金 淨重與總報價<br><span class="en-text">(料 + 鑽 + 工)</span></th>
+        <th style="background-color:#D7CCC8; color:#4A4036;">14K金 淨重與總報價<br><span class="en-text">(料 + 鑽 + 工)</span></th>
+        <th style="background-color:#E6D5C3; color:#4A4036;">10K金 淨重與總報價<br><span class="en-text">(料 + 鑽 + 工)</span></th>
+        <th style="background-color:#9E9E9E;">PT950 淨重與總報價<br><span class="en-text">(料 + 鑽 + 工)</span></th>
       </tr>
       <tr>
         <th>(克 g / 錢/兩)</th>
         <th style="background-color:#D7CCC8; color:#4A4036;">(克 g / 錢/兩)</th>
+        <th style="background-color:#E6D5C3; color:#4A4036;">(克 g / 錢/兩)</th>
         <th style="background-color:#9E9E9E;">(克 g / 錢/兩)</th>
       </tr>`;
 
-    const labels = [
-      { cn: "減少一顆", en: "-1 Stone" },
-      { cn: "標準排版", en: "Standard" },
-      { cn: "增加一顆", en: "+1 Stone" }
-    ];
+    let mainStones = baseStones;
+    let totalStones = mainStones + conf.cStones;
+    let len_mm = conf.cLen + (mainStones * conf.sLen);
+    let len_cm = len_mm / 10;
+    
+    // 鑽石與工費 (自動加上基礎公費)
+    let totalCt = totalStones * conf.ctPerStone;
+    let diaCost = totalCt * diaPrice;
+    let settingFee = totalStones * settingFeePerStone;
+    let totalLaborCost = settingFee + baseProcessFee;
 
-    for(let i = -1; i <= 1; i++) {
-      let mainStones = baseStones + i;
-      let totalStones = mainStones + conf.cStones;
-      let len_mm = conf.cLen + (mainStones * conf.sLen);
-      let len_cm = len_mm / 10;
-      let totalCt = totalStones * conf.ctPerStone;
-      let wt18k = conf.cWt + (mainStones * conf.sWt);
-      let wt14k = wt18k * k14Ratio;
-      let wtPt = wt18k * ptRatio;
+    // 金重 (已含 1.18 損耗)
+    let baseWt18k = conf.cWt + (mainStones * conf.sWt);
+    let wt18k = baseWt18k * lossMultiplier;
+    let wt14k = (baseWt18k * k14Ratio) * lossMultiplier;
+    let wt10k = wt14k * 0.86; 
+    let wtPt = (baseWt18k * ptRatio) * lossMultiplier;
 
-      let label = labels[i+1];
-      let rowClass = i === 0 ? "class='highlight'" : "";
-      
-      html += `<tr ${rowClass}>
-        <td>${label.cn}<br><span class="sub-text">${label.en}</span></td>
-        <td>${totalStones} <span class="sub-text">pcs</span></td>
-        <td style="color:var(--text-main); font-weight:bold; font-size:16px;">${totalCt.toFixed(2)} ct</td>
-        <td>${len_cm.toFixed(2)} cm</td>
-        <td>${wt18k.toFixed(2)} g<br><span class="sub-text weight-unit">${formatWeight(wt18k)}</span></td>
-        <td>${wt14k.toFixed(2)} g<br><span class="sub-text weight-unit">${formatWeight(wt14k)}</span></td>
-        <td>${wtPt.toFixed(2)} g<br><span class="sub-text weight-unit">${formatWeight(wtPt)}</span></td>
-      </tr>`;
-    }
+    // 單純金屬料價
+    let cost18k = wt18k * purity18K * goldPrice;
+    let cost14k = wt14k * purity14K * goldPrice;
+    let cost10k = wt10k * purity10K * goldPrice; 
+    let costPt = wtPt * purityPT * ptPrice;
+
+    // 終極總合計 (料價 + 鑽石 + 總工費)
+    let final18k = cost18k + diaCost + totalLaborCost;
+    let final14k = cost14k + diaCost + totalLaborCost;
+    let final10k = cost10k + diaCost + totalLaborCost;
+    let finalPt = costPt + diaCost + totalLaborCost;
+
+    html += `<tr class='highlight'>
+      <td>
+        <span style="font-weight:bold; font-size:16px;">${totalStones} 顆</span><br>
+        <div class="fee-text">總工費 $${totalLaborCost}</div><br>
+        <span class="sub-text">($10/顆 + $600)</span>
+      </td>
+      <td>
+        <span style="color:var(--text-main); font-weight:bold; font-size:16px;">${totalCt.toFixed(2)} ct</span><br>
+        <div class="price-tag" style="background:#FDEBD0; border:none;">鑽價 $${Math.round(diaCost).toLocaleString()}</div>
+      </td>
+      <td>${len_cm.toFixed(2)} cm</td>
+      <td>
+        ${wt18k.toFixed(2)} g<br><span class="sub-text weight-unit">${formatWeight(wt18k)}</span>
+        <div class="price-tag">料錢 $${Math.round(cost18k).toLocaleString()}</div><br>
+        <div class="total-tag">總價 $${Math.round(final18k).toLocaleString()}</div>
+      </td>
+      <td>
+        ${wt14k.toFixed(2)} g<br><span class="sub-text weight-unit">${formatWeight(wt14k)}</span>
+        <div class="price-tag">料錢 $${Math.round(cost14k).toLocaleString()}</div><br>
+        <div class="total-tag">總價 $${Math.round(final14k).toLocaleString()}</div>
+      </td>
+      <td style="background-color:#FDF9F1;">
+        ${wt10k.toFixed(2)} g<br><span class="sub-text weight-unit">${formatWeight(wt10k)}</span>
+        <div class="price-tag">料錢 $${Math.round(cost10k).toLocaleString()}</div><br>
+        <div class="total-tag">總價 $${Math.round(final10k).toLocaleString()}</div>
+      </td>
+      <td>
+        ${wtPt.toFixed(2)} g<br><span class="sub-text weight-unit">${formatWeight(wtPt)}</span>
+        <div class="price-tag">料錢 $${Math.round(costPt).toLocaleString()}</div><br>
+        <div class="total-tag">總價 $${Math.round(finalPt).toLocaleString()}</div>
+      </td>
+    </tr>`;
+
     html += "</table>";
     document.getElementById('result').innerHTML = html;
   }
